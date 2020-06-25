@@ -1,0 +1,33 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "Query",
+    "index" : "type-index",
+    "query" : {
+        "expression": "#type = :typeValue",
+        "expressionNames" : {
+            "#type" : "type"
+        },
+        "expressionValues" : {
+            ":typeValue" : $util.dynamodb.toDynamoDBJson("recipe")
+        }
+    },
+    "filter": #if($context.args.filter) $util.transform.toDynamoDBFilterExpression($ctx.args.filter) #else null #end,
+    "limit": $util.defaultIfNull(${ctx.args.limit}, 20),
+    "nextToken": $util.toJson($util.defaultIfNullOrBlank($ctx.args.nextToken, null))
+}
+
+{
+  "version": "2017-02-28",
+  "operation": "GetItem",
+  "key": {
+    "id": $util.dynamodb.toDynamoDBJson($ctx.args.id),
+	"__typename": $util.dynamodb.toDynamoDBJson("recipe")
+  },
+}
+
+type Recipe {
+	id: ID!
+	type: String!
+	name: String!
+	title: String!
+}

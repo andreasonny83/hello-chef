@@ -13,6 +13,7 @@ import {
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import { makeStyles } from '@material-ui/core/styles';
+import { Recipe } from '../../Types';
 
 const useStyles = makeStyles(() => ({
   cardMedia: {
@@ -42,10 +43,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 interface Props {
-  post: any;
+  recipe: Recipe;
 }
 
-export const RecipeCard: React.FC<Props> = ({ post }) => {
+export const RecipeCard: React.FC<Props> = ({ recipe }) => {
   const classes = useStyles();
   const [elevation, setElevation] = useState(1);
 
@@ -57,6 +58,8 @@ export const RecipeCard: React.FC<Props> = ({ post }) => {
     setElevation(1);
   }, []);
 
+  const { id, title, description, image } = recipe;
+
   return (
     <Grid item xs={12} md={4}>
       <Card
@@ -65,25 +68,25 @@ export const RecipeCard: React.FC<Props> = ({ post }) => {
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
       >
-        <CardActionArea component="a" href={post.link}>
+        <CardActionArea component="a" href={`/recipes/${id}`}>
           <Hidden xsDown>
             <CardMedia
               className={classes.cardMedia}
-              image={post.image}
-              title={post.title}
+              image={image || 'https://source.unsplash.com/random/'}
+              title={title}
             />
           </Hidden>
           <CardContent className={classes.cardContent}>
             <Typography component="h4" variant="h6" className={classes.title}>
-              {post.title}
+              {title}
             </Typography>
             <Typography variant="caption" className={classes.caption} paragraph>
-              {post.description}
+              {description}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
+          <IconButton aria-label="add to favourites">
             <FavoriteIcon />
           </IconButton>
           <IconButton aria-label="share">

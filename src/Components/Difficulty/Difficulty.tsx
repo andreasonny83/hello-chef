@@ -2,11 +2,7 @@ import React from 'react';
 import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-export interface Props {
-  level: number;
-}
-
-export const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(() => ({
   paper: {
     backgroundColor: '#eee',
     width: '28px',
@@ -14,6 +10,10 @@ export const useStyles = makeStyles(() => ({
     margin: '1px',
   },
 }));
+
+interface Props {
+  level: number;
+}
 
 export const Difficulty: React.FC<Props> = ({ level }) => {
   const classes = useStyles();

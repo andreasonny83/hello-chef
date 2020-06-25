@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Container, Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,8 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const App = () => {
+export const App = memo(() => {
   const classes = useStyles();
+
   return (
     <Box className={classes.root}>
       <Container maxWidth="lg">
@@ -33,4 +34,4 @@ export const App = () => {
       <Footer />
     </Box>
   );
-};
+});
